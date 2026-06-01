@@ -1,0 +1,1408 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif Sejarah Kelas XI - MAN 1 Kota Bekasi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        madrasah: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        gold: {
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-madrasah-100 rounded-lg text-madrasah-700">
+                    <!-- SVG Book Open Icon -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-sm sm:text-base font-bold text-slate-900 leading-tight">E-Evaluasi Sejarah XI</h1>
+                    <p class="text-xs text-slate-500">MAN 1 Kota Bekasi • TP 2025/2026</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span id="badge-timer" class="hidden bg-amber-50 border border-amber-200 text-amber-800 px-3 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 shadow-sm">
+                    <svg class="w-4 h-4 animate-spin-slow text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span id="quiz-timer">00:00</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col justify-center">
+        
+        <!-- SCREEN 1: WELCOME/START -->
+        <section id="screen-start" class="max-w-xl w-full mx-auto bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-8 transition-all">
+            <div class="text-center mb-6">
+                <span class="bg-madrasah-50 border border-madrasah-100 text-madrasah-700 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                    Penilaian Akhir Semester Genap
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-4 leading-snug">Kuis Analisis Sejarah</h2>
+                <p class="text-slate-500 mt-2 text-sm sm:text-base">Masa Pendudukan Jepang & Proklamasi Kemerdekaan Indonesia</p>
+            </div>
+
+            <!-- Quiz Info Grid -->
+            <div class="grid grid-cols-2 gap-3 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                <div class="flex items-center space-x-2.5">
+                    <div class="p-1.5 bg-blue-100 text-blue-700 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Jumlah Soal</p>
+                        <p class="text-sm font-bold text-slate-800">40 Butir (PG)</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2.5">
+                    <div class="p-1.5 bg-green-100 text-green-700 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Bobot per Soal</p>
+                        <p class="text-sm font-bold text-slate-800">2.5 Poin</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2.5">
+                    <div class="p-1.5 bg-purple-100 text-purple-700 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Nilai Maksimal</p>
+                        <p class="text-sm font-bold text-slate-800">100 Poin</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2.5">
+                    <div class="p-1.5 bg-orange-100 text-orange-700 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400 font-medium">Guru Pengampu</p>
+                        <p class="text-sm font-bold text-slate-800">Dody Hermanto, S.Pd</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Registration Form -->
+            <form id="form-register" class="space-y-4" onsubmit="event.preventDefault(); startQuiz();">
+                <div>
+                    <label for="student-name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap Siswa</label>
+                    <input type="text" id="student-name" required placeholder="Masukkan nama lengkap Anda..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-madrasah-600 focus:border-transparent outline-none transition text-sm">
+                </div>
+                <div>
+                    <label for="student-class" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kelas</label>
+                    <select id="student-class" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-madrasah-600 focus:border-transparent outline-none transition text-sm bg-white">
+                        <option value="XI-1">Kelas XI - 1</option>
+                        <option value="XI-2">Kelas XI - 2</option>
+                        <option value="XI-3">Kelas XI - 3</option>
+                        <option value="XI-4">Kelas XI - 4</option>
+                        <option value="XI-5">Kelas XI - 5</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="w-full bg-madrasah-600 hover:bg-madrasah-700 active:scale-[0.98] text-white py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide shadow-lg shadow-madrasah-100 transition-all flex items-center justify-center space-x-2">
+                    <span>Mulai Kuis Sekarang</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </form>
+        </section>
+
+        <!-- SCREEN 2: ACTIVE QUIZ -->
+        <section id="screen-quiz" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl w-full mx-auto transition-all">
+            
+            <!-- Question Box (Takes 3 columns on large screens) -->
+            <div class="lg:col-span-3 space-y-4">
+                <!-- Question Card -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-md p-5 sm:p-6 space-y-5">
+                    
+                    <!-- Progress & Indicator Metadata -->
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-100 pb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-madrasah-600 text-white px-3 py-1 rounded-lg text-xs font-bold" id="quiz-question-number">
+                                Soal 1
+                            </span>
+                            <span class="bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md text-xs font-semibold" id="quiz-indicator-level">
+                                Level Kognitif 4
+                            </span>
+                        </div>
+                        <span class="text-xs text-slate-400 font-medium italic" id="quiz-indicator-title">
+                            Materi: Restorasi Meiji
+                        </span>
+                    </div>
+
+                    <!-- Question Stem -->
+                    <div class="text-slate-900 font-semibold text-base sm:text-lg leading-relaxed" id="quiz-question-text">
+                        Loading question...
+                    </div>
+
+                    <!-- Options Container -->
+                    <div class="space-y-3" id="quiz-options-container">
+                        <!-- Dynamically filled with A-E option buttons -->
+                    </div>
+
+                    <!-- Instant Explanation Box (Hidden until answer chosen) -->
+                    <div id="quiz-feedback-box" class="hidden rounded-xl p-4 transition-all duration-300">
+                        <div class="flex items-start space-x-3">
+                            <div id="quiz-feedback-icon" class="p-1 rounded-lg mt-0.5">
+                                <!-- SVGs here -->
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm" id="quiz-feedback-heading">Jawaban Benar!</h4>
+                                <p class="text-xs text-slate-600 mt-1 leading-relaxed" id="quiz-feedback-rationale">
+                                    Penjelasan logis akan muncul di sini.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Action Buttons -->
+                    <div class="flex justify-between items-center pt-2 border-t border-slate-100">
+                        <button onclick="prevQuestion()" id="btn-prev" class="border border-slate-200 hover:bg-slate-50 text-slate-700 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center space-x-1.5 transition disabled:opacity-40 disabled:pointer-events-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            <span>Sebelumnya</span>
+                        </button>
+                        
+                        <button onclick="nextQuestion()" id="btn-next" class="bg-madrasah-600 hover:bg-madrasah-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center space-x-1.5 transition">
+                            <span id="btn-next-text">Selanjutnya</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Quiz Navigation Sidebar (Takes 1 column on large screens) -->
+            <div class="space-y-4">
+                <!-- User Profile & Global Progress Card -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-md p-4 space-y-3">
+                    <div>
+                        <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Siswa Aktif</p>
+                        <h3 class="text-sm font-bold text-slate-800 truncate" id="profile-display-name">-</h3>
+                        <p class="text-xs text-slate-500" id="profile-display-class">Kelas: -</p>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="space-y-1.5 pt-2 border-t border-slate-100">
+                        <div class="flex justify-between text-xs font-semibold text-slate-500">
+                            <span>Kemajuan Kuis</span>
+                            <span id="progress-percentage">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-2">
+                            <div id="progress-bar-fill" class="bg-madrasah-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-slate-400">
+                            <span id="answered-count">0 Terjawab</span>
+                            <span>40 Total Soal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jump Grid Card -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-md p-4 space-y-3">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Navigasi Nomor Soal</h4>
+                    
+                    <!-- Grid Buttons -->
+                    <div class="grid grid-cols-5 gap-1.5 max-h-60 overflow-y-auto pr-1" id="jump-grid-container">
+                        <!-- Dynamic grid buttons from 1 to 40 -->
+                    </div>
+
+                    <div class="flex items-center justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-100">
+                        <div class="flex items-center space-x-1">
+                            <span class="w-2.5 h-2.5 bg-madrasah-600 rounded"></span>
+                            <span>Aktif</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="w-2.5 h-2.5 bg-blue-100 rounded"></span>
+                            <span>Terjawab</span>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <span class="w-2.5 h-2.5 bg-slate-100 rounded"></span>
+                            <span>Belum</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finish Quiz Box -->
+                <button onclick="confirmFinishQuiz()" class="w-full bg-red-600 hover:bg-red-700 text-white py-3 px-4 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-red-100 transition duration-150 flex items-center justify-center space-x-1.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                    <span>Selesaikan & Kumpul Kuis</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- SCREEN 3: RESULTS / STATS -->
+        <section id="screen-result" class="hidden max-w-4xl w-full mx-auto space-y-6 transition-all">
+            
+            <!-- Result Overview Card -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-xl p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                
+                <!-- Circular/Badge Score Display -->
+                <div class="text-center md:border-r border-slate-100 py-2 flex flex-col items-center justify-center">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Skor Akhir Anda</p>
+                    <div class="relative flex items-center justify-center my-4">
+                        <!-- SVG Progress Ring -->
+                        <svg class="w-32 h-32 transform -rotate-90">
+                            <circle cx="64" cy="64" r="54" stroke="#f1f5f9" stroke-width="12" fill="transparent" />
+                            <circle cx="64" cy="64" r="54" stroke="#16a34a" stroke-width="12" fill="transparent" 
+                                    stroke-dasharray="339.29" id="score-ring-fill" />
+                        </svg>
+                        <div class="absolute text-3xl font-extrabold text-slate-900" id="score-display-number">0</div>
+                    </div>
+                    <!-- KKM Badge -->
+                    <span id="kkm-status-badge" class="px-4 py-1.5 rounded-full text-xs font-extrabold tracking-wider uppercase">
+                        SANGAT BAIK (LULUS)
+                    </span>
+                </div>
+
+                <!-- Stats Counters -->
+                <div class="md:col-span-2 space-y-5">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900" id="result-display-name">Selamat, Siswa!</h3>
+                        <p class="text-xs text-slate-500 mt-1" id="result-display-meta">Evaluasi selesai dilaksanakan</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <div class="bg-green-50 border border-green-100 p-3.5 rounded-xl text-center">
+                            <p class="text-[10px] font-bold text-green-600 uppercase tracking-wide">Benar</p>
+                            <p class="text-lg font-bold text-slate-800 mt-0.5" id="stat-correct">0</p>
+                        </div>
+                        <div class="bg-red-50 border border-red-100 p-3.5 rounded-xl text-center">
+                            <p class="text-[10px] font-bold text-red-600 uppercase tracking-wide">Salah</p>
+                            <p class="text-lg font-bold text-slate-800 mt-0.5" id="stat-incorrect">0</p>
+                        </div>
+                        <div class="bg-purple-50 border border-purple-100 p-3.5 rounded-xl text-center col-span-2 sm:col-span-1">
+                            <p class="text-[10px] font-bold text-purple-600 uppercase tracking-wide">Waktu Pengerjaan</p>
+                            <p class="text-lg font-bold text-slate-800 mt-0.5" id="stat-time">00:00</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-2 pt-2">
+                        <button onclick="restartQuiz()" class="bg-madrasah-600 hover:bg-madrasah-700 text-white font-bold text-xs sm:text-sm py-2.5 px-5 rounded-xl transition duration-150 flex items-center justify-center space-x-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 4.79M9 11l3 3L22 4"></path></svg>
+                            <span>Ulangi Kuis</span>
+                        </button>
+                        <button onclick="scrollToReview()" class="border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs sm:text-sm py-2.5 px-5 rounded-xl transition flex items-center justify-center space-x-1.5">
+                            <span>Tinjau Jawaban Anda</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-6l-7 7-7-7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Review Section (List of all 40 questions and student answers) -->
+            <div id="review-section" class="bg-white rounded-2xl border border-slate-200 shadow-lg p-5 sm:p-6 space-y-6">
+                <div class="border-b border-slate-100 pb-3">
+                    <h3 class="text-lg font-bold text-slate-900">Analisis Hasil Ujian & Tinjauan Butir Soal</h3>
+                    <p class="text-xs text-slate-500">Periksa detail jawaban Anda untuk memahami materi evaluasi</p>
+                </div>
+
+                <div class="space-y-6" id="review-list-container">
+                    <!-- Dinamik terisi dengan barisan hasil review soal -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400">
+            &copy; 2026 Madrasah Aliyah Negeri 1 Kota Bekasi. Hak Cipta Dilindungi Undang-Undang.
+        </div>
+    </footer>
+
+    <!-- MODAL CUSTOM FOR CONFIRM FINISH -->
+    <div id="modal-confirm" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl border border-slate-100 animate-fade-in">
+            <div class="flex items-start space-x-3 text-amber-600">
+                <div class="p-2 bg-amber-50 rounded-xl">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900">Kumpulkan Jawaban?</h3>
+                    <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                        Apakah Anda yakin ingin menyelesaikan kuis ini? Pastikan seluruh soal telah Anda jawab dengan cermat.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats inside modal -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-around text-center">
+                <div>
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Sudah Dijawab</span>
+                    <span class="text-sm font-bold text-slate-800" id="modal-answered">-</span>
+                </div>
+                <div class="border-r border-slate-200"></div>
+                <div>
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Sisa Soal</span>
+                    <span class="text-sm font-bold text-slate-800" id="modal-unanswered">-</span>
+                </div>
+            </div>
+
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeModal()" class="flex-1 border border-slate-200 hover:bg-slate-50 text-slate-700 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition">
+                    Kembali
+                </button>
+                <button onclick="finishQuiz()" class="flex-1 bg-madrasah-600 hover:bg-madrasah-700 text-white py-2.5 rounded-xl font-bold text-xs sm:text-sm transition">
+                    Kumpulkan
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KUIS DATASET -->
+    <script>
+        const quizData = [
+            {
+                "id": 1,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Restorasi Meiji (Awal Modernisasi)",
+                "question": "Restorasi Meiji (1868) dianggap sebagai titik balik krusial yang mengubah Jepang dari negara feodal yang terisolasi menjadi kekuatan modern dunia. Faktor analisis manakah yang paling tepat menggambarkan keberhasilan Jepang memodernisasi diri tanpa kehilangan identitas budayanya?",
+                "options": {
+                    "A": "Mengadopsi seluruh nilai sosial dan budaya Barat secara total tanpa penyaringan guna mempercepat integrasi global.",
+                    "B": "Menggabungkan keunggulan teknologi dan militer Barat dengan pemeliharaan nilai-nilai tradisi timur (Wakon Yosai).",
+                    "C": "Menolak mentah-mentah segala bentuk bantuan atau kerja sama dengan negara asing sejak awal restorasi.",
+                    "D": "Menghancurkan seluruh kuil Shinto tradisional untuk digantikan dengan pusat-pusat peradaban industri modern.",
+                    "E": "Membatasi perluasan industri militer nasional demi menjaga stabilitas klan feodal Shogun."
+                },
+                "correct": "B",
+                "rationale": "Semboyan Wakon Yosai (semangat Jepang, teknologi Barat) terbukti berhasil memodernisasi industri dan militer sambil mempertahankan nilai-nilai luhur moral Bushido, loyalitas kekaisaran, dan identitas budaya Shinto."
+            },
+            {
+                "id": 2,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Restorasi Meiji (Awal Modernisasi)",
+                "question": "Sebagai langkah awal modernisasi dalam Restorasi Meiji, Kaisar Mutsuhito mengeluarkan kebijakan piagam politik yang dikenal sebagai Charter Oath (Sumpah Setia). Apa salah satu poin penting dalam piagam tersebut yang mendorong keterbukaan Jepang terhadap dunia luar?",
+                "options": {
+                    "A": "Pengukuhan kembali sistem kasta feodal samurai sebagai kelas penguasa tertinggi.",
+                    "B": "Penandatanganan pakta pertahanan militer bersama negara tetangga seperti Tiongkok dan Korea.",
+                    "C": "Pencarian ilmu pengetahuan seluas-luasnya ke seluruh penjuru dunia guna memperkokoh sendi-sendi kekaisaran.",
+                    "D": "Larangan bagi pemuda Jepang untuk melanjutkan studi akademis ke benua Amerika dan Eropa.",
+                    "E": "Pembatasan masuknya tenaga ahli asing demi menjaga kemurnian operasional industri nasional."
+                },
+                "correct": "C",
+                "rationale": "Sumpah Setia Piagam (Charter Oath) mengumumkan keterbukaan Jepang untuk mencari ilmu pengetahuan ke seluruh dunia (Barat) sebagai sarana utama mendesain sistem pertahanan dan peradaban industri baru."
+            },
+            {
+                "id": 3,
+                "level": "Level Kognitif 5",
+                "indicator": "Materi: Perkembangan Imperialisme Jepang",
+                "question": "Seiring dengan keberhasilan modernisasi pasca-Restorasi Meiji, Jepang mengalami perubahan haluan kebijakan luar negeri yang sangat drastis, dari defensif-protektif menjadi agresif-imperialis. Evaluasilah faktor pendorong internal paling krusial yang melatarbelakangi perubahan karakter politik luar negeri Jepang tersebut!",
+                "options": {
+                    "A": "Rasa solidaritas kemanusiaan yang tinggi untuk menyebarkan kekayaan hasil panen Jepang ke luar negeri secara sukarela.",
+                    "B": "Desakan dari perhimpunan bangsa-bangsa Barat agar Jepang bersedia menjadi polisi penjaga perdamaian di kawasan Laut Tiongkok Selatan.",
+                    "C": "Keterbatasan geografis wilayah Jepang yang minim sumber daya alam energi guna menyuplai industri dalam negerinya yang sedang tumbuh masif.",
+                    "D": "Pengaruh kuat ajaran pasifis Buddhis tradisional yang menghendaki penguasaan wilayah tanpa pertumpahan darah.",
+                    "E": "Runtuhnya kedudukan Kaisar yang digantikan oleh dewan buruh industri radikal yang ingin meluaskan pasar komunisme."
+                },
+                "correct": "C",
+                "rationale": "Keterbatasan fisik geografis Jepang yang miskin tambang batu bara, minyak, dan bijih besi memaksa negara yang telah bertransformasi menjadi macan industri baru ini melakukan penaklukan wilayah demi menyuplai mesin industrinya."
+            },
+            {
+                "id": 4,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Latar Belakang Imperialisme Jepang",
+                "question": "Kemenangan Jepang atas Tiongkok (1894-1895) dan Rusia (1904-1905) menjadi katalisator krusial dalam memperkokoh imperialisme Jepang. Analisislah kaitan antara kemenangan militer Jepang atas kekuatan besar Rusia dengan meningkatnya intensitas ekspansi Jepang di benua Asia!",
+                "options": {
+                    "A": "Kekalahan Rusia membuktikan bahwa bangsa Eropa tidak mungkin dapat dikalahkan oleh kekuatan militer Asia modern.",
+                    "B": "Perjanjian damai pasca-perang memaksa Rusia untuk menyerahkan kepemilikan daerah jajahannya di wilayah Asia Tenggara kepada Jepang.",
+                    "C": "Kemenangan tersebut mematahkan mitos superioritas ras kulit putih, memicu rasa percaya diri nasional yang agresif bahwa Jepang layak memimpin Asia.",
+                    "D": "Pasukan militer Jepang menjadi sangat bergantung pada pasokan tentara cadangan dari kawasan Siberia utara.",
+                    "E": "Terjalinnya aliansi pertahanan rahasia antara kaisar Rusia yang kalah dengan jenderal militer Jepang di Tokyo."
+                },
+                "correct": "C",
+                "rationale": "Kemenangan atas Rusia (kekuatan adidaya Eropa kulit putih) mendongkrak status politik dan moral bangsa Jepang bahwa ras Asia modern kini sanggup mengimbangi, bahkan melampaui keunggulan taktis bangsa Barat."
+            },
+            {
+                "id": 5,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Awal Kedatangan Jepang ke Indonesia",
+                "question": "Jepang mendarat pertama kali di Indonesia melalui Tarakan (Kalimantan Timur) pada 11 Januari 1942, sebelum akhirnya menguasai Palembang dan Pulau Jawa. Analisislah alasan taktis-strategis militer Jepang memprioritaskan Tarakan sebagai target pendaratan pertamanya!",
+                "options": {
+                    "A": "Tarakan merupakan pusat administrasi pemerintahan dan kebudayaan terbesar di wilayah luar Jawa.",
+                    "B": "Ketersediaan sumber minyak bumi berkualitas tinggi di Tarakan yang sangat dibutuhkan untuk kelangsungan operasional mesin perang Jepang di Pasifik.",
+                    "C": "Letak Tarakan sangat dekat dengan pangkalan angkatan laut utama Sekutu yang berada di utara Australia.",
+                    "D": "Penduduk Tarakan telah dilatih secara militer oleh Jepang jauh sebelum perang pecah di Laut Pasifik.",
+                    "E": "Topografi Tarakan yang berbukit landai memudahkan Jepang membangun instalasi radar udara raksasa."
+                },
+                "correct": "B",
+                "rationale": "Tarakan adalah produsen minyak bumi mentah terbaik tanpa perlu pengolahan rumit yang langsung dapat dipasok ke kapal perang angkatan laut (Kaigun) dan mesin terbang Jepang demi kelangsungan operasi ekspansif."
+            },
+            {
+                "id": 6,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Penyerahan Kekuasaan Belanda ke Jepang",
+                "question": "Hindia Belanda secara resmi menyerah tanpa syarat kepada Jepang melalui penandatanganan suatu dokumen perjanjian militer pada tanggal 8 Maret 1942. Nama tempat dilaksanakannya penyerahan kekuasaan tersebut adalah...",
+                "options": {
+                    "A": "Perjanjian Linggajati, Kuningan",
+                    "B": "Perjanjian Kalijati, Subang",
+                    "C": "Kapitulasi Tuntang, Salatiga",
+                    "D": "Perjanjian Renville, Jakarta",
+                    "E": "Perjanjian Roem-Royen, Jakarta"
+                },
+                "correct": "B",
+                "rationale": "Belanda secara resmi menandatangani Kapitulasi Kalijati di Subang, Jawa Barat pada tanggal 8 Maret 1942, mengakhiri kekuasaan kolonial ratusan tahun Belanda dan memulai era pendudukan militer Jepang."
+            },
+            {
+                "id": 7,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Organisasi Putera & Tokoh Nasional",
+                "question": "Jepang mendirikan organisasi Pusat Tenaga Rakyat (Putera) dengan tujuan merangkul tokoh-tokoh nasionalis seperti Sukarno dan Hatta untuk menggerakkan simpati rakyat demi kepentingan perang Jepang. Namun, taktik pemanfaatan ini berbalik menjadi kegagalan bagi Jepang. Analisislah mengapa taktik Jepang tersebut gagal!",
+                "options": {
+                    "A": "Para tokoh nasionalis bersikap pasif dan menolak memimpin rapat-rapat akbar yang diselenggarakan Putera.",
+                    "B": "Sukarno dan para pemimpin lainnya justru menggunakan legalitas koran dan panggung rapat Putera untuk mematangkan jiwa nasionalisme rakyat demi kemerdekaan Indonesia.",
+                    "C": "Putera diam-diam diboikot oleh golongan ulama tradisional karena dianggap tidak memperjuangkan nilai-nilai agama Islam.",
+                    "D": "Organisasi tersebut kehabisan dana operasional karena seluruh aset keuangannya dikorupsi oleh perwira militer Jepang.",
+                    "E": "Jepang mendeteksi adanya penyelundupan senjata api ilegal dari Uni Soviet yang dimasukkan lewat jaringan pengurus Putera daerah."
+                },
+                "correct": "B",
+                "rationale": "Alih-alih menyosialisasikan perang Jepang, Empat Serangkai pemimpin Putera menggunakan setiap kesempatan berpidato dan saluran publikasi legalnya untuk menyebarkan gagasan nasionalisme-kemerdekaan Indonesia secara masif."
+            },
+            {
+                "id": 8,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Kronologi Invasi Jepang di Indonesia",
+                "question": "Perhatikan data perjalanan penaklukan militer Jepang di Indonesia tahun 1942 berikut:\n(1) Menguasai kilang minyak Balikpapan\n(2) Merebut pertahanan udara di Palembang\n(3) Mendaratkan pasukan di Tarakan, Kalimantan Timur\n(4) Menyerbu pertahanan Belanda di Banten dan Kragan (Jawa)\n(5) Menandatangani Kapitulasi Kalijati\n\nUrutan kronologi pendaratan dan penyerbuan militer Jepang yang paling tepat dari awal hingga jatuhnya kekuasaan Belanda adalah...",
+                "options": {
+                    "A": "3 - 1 - 2 - 4 - 5",
+                    "B": "3 - 2 - 1 - 4 - 5",
+                    "C": "1 - 3 - 2 - 4 - 5",
+                    "D": "2 - 1 - 3 - 4 - 5",
+                    "E": "4 - 3 - 1 - 2 - 5"
+                },
+                "correct": "A",
+                "rationale": "Jalur invasi Jepang dimulai dari Tarakan (11 Jan), menyusuri Balikpapan (24 Jan), lalu manuver strategis mengamankan Palembang (Feb), dilanjutkan serangan simultan pendaratan Jawa di Banten-Kragan, dan diakhiri dengan Kalijati (8 Mar)."
+            },
+            {
+                "id": 9,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Tokoh Non-Kooperatif",
+                "question": "Meskipun banyak tokoh nasional menempuh jalur kooperatif (bekerja sama) dengan Jepang demi keselamatan rakyat, terdapat beberapa tokoh pejuang nasionalis yang konsisten memilih jalur non-kooperatif dengan melakukan gerakan bawah tanah (rahasia) anti-fasis. Tokoh yang memimpin gerakan bawah tanah tersebut adalah...",
+                "options": {
+                    "A": "Raden Aby Kusno Tjokrosoejoso",
+                    "B": "Sutan Sjahrir",
+                    "C": "K.H. Mas Mansyur",
+                    "D": "Dr. Radjiman Wedyodiningrat",
+                    "E": "Ahmad Soebardjo"
+                },
+                "correct": "B",
+                "rationale": "Sutan Sjahrir menolak mentah-mentah berkolaborasi secara legal formal dengan rezim fasis militer Jepang dan menyusun taktik menggalang jaringan pejuang bawah tanah rahasia anti-fasis di berbagai wilayah perkotaan."
+            },
+            {
+                "id": 10,
+                "level": "Level Kognitif 5",
+                "indicator": "Materi: Dampak Tidak Langsung Pendidikan Militer",
+                "question": "Pemerintah militer Jepang melatih para pemuda Indonesia dengan disiplin militer yang sangat keras melalui pembentukan organisasi PETA (Pembela Tanah Air) dan Heiho untuk membantu pertahanan Jepang. Evaluasilah dampak tidak langsung yang paling positif dari keberadaan badan-badan militer tersebut bagi masa depan perjuangan bangsa Indonesia!",
+                "options": {
+                    "A": "Meningkatkan loyalitas spiritual pemuda Indonesia terhadap kepemimpinan Kaisar Jepang di masa depan.",
+                    "B": "Melahirkan kelompok prajurit pribumi terlatih taktik perang modern yang nantinya menjadi tulang punggung kekuatan tentara pertahanan Indonesia (TKR/TNI) saat menghadapi agresi militer Belanda.",
+                    "C": "Membantu mempercepat penguasaan teknologi kedirgantaraan militer di kalangan para pemuda pedesaan.",
+                    "D": "Terciptanya perdamaian abadi antara pemuda Indonesia dengan tentara Sekutu yang memenangi Perang Dunia II.",
+                    "E": "Mengurangi angka pengangguran pemuda secara permanen di seluruh wilayah perkotaan Jawa dan Sumatra."
+                },
+                "correct": "B",
+                "rationale": "PETA mendidik pemuda disiplin komando tempur nyata. Tanpa bimbingan taktis semi-profesional ini, Indonesia akan sangat kesusahan membentuk angkatan bersenjata yang tangguh untuk mematahkan agresi militer Belanda pasca-kemerdekaan."
+            },
+            {
+                "id": 11,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Organisasi Semimiliter Jepang",
+                "question": "Pada tahun 1943, Jepang mendirikan organisasi barisan pemuda semimiliter yang berfungsi sebagai cadangan pertahanan sipil untuk mengamankan wilayah garis belakang dari serangan Sekutu. Organisasi barisan pemuda ini dikenal dengan nama...",
+                "options": {
+                    "A": "Keibodan",
+                    "B": "Seinendan",
+                    "C": "Fujinkai",
+                    "D": "Jibakutai",
+                    "E": "Jawa Hokokai"
+                },
+                "correct": "B",
+                "rationale": "Seinendan adalah barisan pemuda semimiliter rentang usia 14-22 tahun yang didirikan secara nasional dengan maksud melatih kecakapan fisik pertahanan sipil garis belakang."
+            },
+            {
+                "id": 12,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Kebijakan Bahasa & Integrasi Nasional",
+                "question": "Jepang melarang penggunaan bahasa Belanda dan mewajibkan penggunaan bahasa Indonesia di sekolah-sekolah serta administrasi pemerintahan sipil. Hubungkan kebijakan kebahasaan pemerintah militer Jepang ini dengan proses integrasi nasional jangka panjang bangsa Indonesia!",
+                "options": {
+                    "A": "Kebijakan ini berhasil menyatukan kebudayaan suku-suku di Indonesia dengan kebudayaan tradisional Jepang secara harmonis.",
+                    "B": "Pelarangan bahasa Belanda memaksa masyarakat adat kembali mengisolasi diri dan menggunakan dialek suku masing-masing.",
+                    "C": "Penggunaan bahasa Indonesia secara masif melahirkan perasaan senasib-seperjuangan dan mematangkan fungsi bahasa Indonesia sebagai alat pemersatu nasional yang meruntuhkan sekat-sekat kedaerahan.",
+                    "D": "Bahasa Indonesia mengalami penurunan kualitas tata bahasa karena dicampur dengan struktur tata bahasa militer Jepang.",
+                    "E": "Munculnya perlawanan bersenjata dari kalangan guru pribumi yang menolak mengajarkan bahasa Indonesia di kelas-kelas mereka."
+                },
+                "correct": "C",
+                "rationale": "Diberlakukannya bahasa Indonesia sebagai bahasa resmi komunikasi administrasi dan sekolah secara terpadu berhasil mempercepat peleburan sekat antarsuku, memfasilitasi integrasi, dan memperkokoh rasa persatuan nusa bangsa."
+            },
+            {
+                "id": 13,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Kebijakan Bahasa & Komisi Bahasa",
+                "question": "Apa motif utama yang melandasi keputusan pemerintah pendudukan Jepang mendirikan Komisi Bahasa Indonesia pada bulan Oktober 1942?",
+                "options": {
+                    "A": "Mempersiapkan bangsa Indonesia agar mampu menyusun naskah proklamasi kemerdekaan secara mandiri sejak awal.",
+                    "B": "Mengikis habis pengaruh kebudayaan Barat (Belanda) di kalangan masyarakat sekaligus mempermudah penyebaran propaganda militer Jepang agar cepat diserap oleh seluruh lapisan rakyat.",
+                    "C": "Menunjukkan kesetaraan derajat peradaban kebahasaan antara bangsa Indonesia dengan bangsa modern Eropa.",
+                    "D": "Menerjemahkan karya sastra tradisional Jepang ke dalam bahasa daerah di pelosok nusantara.",
+                    "E": "Mengganti kedudukan bahasa Jepang yang dinilai terlalu sulit dipelajari oleh tentara pendudukan sendiri."
+                },
+                "correct": "B",
+                "rationale": "Jepang ingin memotong pengaruh kolonialisasi budaya Barat (Belanda) dan menggunakan bahasa Indonesia yang ramah sebagai jembatan strategis menyalurkan aneka doktrin serta instruksi mobilisasi militer harian."
+            },
+            {
+                "id": 14,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Istilah Penting Pendudukan Jepang",
+                "question": "Dalam sejarah pendudukan Jepang di Indonesia, terdapat kebijakan mobilisasi sosial berupa pengerahan tenaga kerja paksa bagi para petani dan masyarakat kelas bawah untuk membangun instalasi militer, jalan raya, dan benteng pertahanan. Istilah yang merujuk pada pengerahan kerja paksa kejam ini adalah...",
+                "options": {
+                    "A": "Romusha",
+                    "B": "Gunseikan",
+                    "C": "Jugun Ianfu",
+                    "D": "Tonarigumi",
+                    "E": "Saiko Shikikan"
+                },
+                "correct": "A",
+                "rationale": "Romusha adalah istilah spesifik jepang bagi pengerahan paksa massa petani/rakyat bawah untuk dipekerjakan secara kasar dalam aneka konstruksi infrastruktur pertahanan darat dan laut."
+            },
+            {
+                "id": 15,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Dampak Kebijakan Ekonomi Autarki",
+                "question": "Jepang menerapkan kebijakan ekonomi perang berupa autarki (self-sufficiency), di mana setiap wilayah karesidenan wajib mandiri memenuhi kebutuhan pangannya sendiri sekaligus menyetor upeti wajib hasil bumi bagi tentara perang. Analisislah dampak kebijakan autarki ekonomi ini terhadap kondisi ketahanan sosial rakyat pedesaan!",
+                "options": {
+                    "A": "Terciptanya kemakmuran pangan yang merata karena terhentinya monopoli ekspor ke pasar internasional.",
+                    "B": "Munculnya sistem pertanian modern ramah lingkungan yang dipandu oleh para ilmuwan dari Jepang.",
+                    "C": "Terjadinya bencana kelaparan hebat, gizi buruk, dan epidemi penyakit di berbagai desa akibat isolasi jalur perdagangan pangan antardaerah dan penyitaan paksa padi milik petani.",
+                    "D": "Petani Indonesia beralih profesi menjadi pengusaha industri manufaktur berskala menengah secara mandiri.",
+                    "E": "Pemerintah Jepang memberikan subsidi pupuk dan peralatan pertanian secara cuma-cuma kepada petani berprestasi."
+                },
+                "correct": "C",
+                "rationale": "Kewajiban mandiri di setiap daerah yang terisolasi, ditambah wajib setor beras hingga 30% atau lebih dari hasil bumi, langsung melumpuhkan sirkulasi suplai pangan nasional, sehingga memicu kelaparan ekstrem di pedesaan."
+            },
+            {
+                "id": 16,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Pengaruh Jepang pada Realitas Masa Kini",
+                "question": "Jepang memperkenalkan sistem kerukunan warga tetangga yang disebut Tonarigumi untuk mempermudah pengawasan politik, mobilisasi tenaga kerja, dan penyaluran logistik ke tingkat keluarga. Hubungkan pengaruh organisasi kemasyarakatan era Jepang tersebut dengan realitas kehidupan sosial administrasi kemasyarakatan di Indonesia pada masa sekarang!",
+                "options": {
+                    "A": "Tonarigumi menjadi dasar utama pembentukan sistem keamanan kelurahan terpadu (Siskamling).",
+                    "B": "Struktur Tonarigumi diadopsi secara langsung menjadi lembaga Rukun Tetangga (RT) dan Rukun Warga (RW) guna mempermudah administrasi pelayanan kependudukan sipil harian.",
+                    "C": "Sistem tersebut dilarang sepenuhnya karena dianggap mempromosikan paham militerisme asing di tingkat rukun tetangga.",
+                    "D": "Tonarigumi berkembang menjadi sistem pembagian kupon sembako murah nasional yang dikelola secara komersial oleh swasta.",
+                    "E": "Adanya kewajiban upacara membungkuk bersama di tingkat rukun warga setiap pagi hari sebelum mulai beraktivitas."
+                },
+                "correct": "B",
+                "rationale": "Sistem Tonarigumi (kerukunan tetangga) terus diadaptasi di Republik Indonesia hingga detik ini dalam tata bentuk administratif ke-RT-an dan ke-RW-an sebagai unit terbawah pelayanan sipil masyarakat."
+            },
+            {
+                "id": 17,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Karakteristik Strategi Perjuangan",
+                "question": "Strategi perjuangan para tokoh nasionalis dalam menghadapi pendudukan Jepang memiliki karakteristik yang berbeda dibanding masa kolonial Belanda. Karakteristik utama dari strategi perjuangan 'kooperatif' yang dipilih oleh Sukarno dan Moh. Hatta adalah...",
+                "options": {
+                    "A": "Melakukan serangan fisik bersenjata secara mendadak ke pangkalan udara militer Jepang di kota-kota besar.",
+                    "B": "Bersedia menduduki jabatan dalam badan administratif bentukan Jepang guna menyuarakan aspirasi rakyat dan memelihara persatuan nasional di bawah pengawasan ketat musuh.",
+                    "C": "Memboikot seluruh instruksi kerja bakti sosial dan mengungsi ke pegunungan demi membangun pemerintahan baru.",
+                    "D": "Menjalin kerja sama rahasia dengan militer Belanda untuk membebaskan sisa-sisa tawanan perang di kamp militer.",
+                    "E": "Menolak berdialog dengan perwira militer Jepang dan menutup kantor-kantor penerbitan surat kabar nasional."
+                },
+                "correct": "B",
+                "rationale": "Sikap kooperatif (bekerja sama) di permukaan digunakan para tokoh sebagai perisai taktis untuk melindungi massa rakyat dari kesewenang-wenangan militer sekaligus legalisasi koordinasi nasional merajut kemerdekaan."
+            },
+            {
+                "id": 18,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Perlawanan Terhadap Jepang (Singaparna)",
+                "question": "Pada tahun 1944, meletus perlawanan rakyat bersenjata di Singaparna (Jawa Barat) di bawah pimpinan ulama terpandang K.H. Zainal Musthafa. Analisislah penyebab utama penolakan keras yang memicu perlawanan rakyat Singaparna terhadap kebijakan militer Jepang tersebut!",
+                "options": {
+                    "A": "Jepang menolak memberikan izin bagi pendirian sekolah pesantren tradisional di wilayah Singaparna.",
+                    "B": "Adanya instruksi pelaksanaan ritual Seikerei (membungkukkan badan ke arah Tokyo untuk menghormati Kaisar) yang dinilai melanggar akidah tauhid Islam karena menyembah selain Allah.",
+                    "C": "Penarikan paksa pemuda-pemuda santri Singaparna untuk dikirim menjadi tentara bunuh diri di garis depan Pasifik.",
+                    "D": "Kekecewaan masyarakat atas kebijakan Jepang yang memotong dana bantuan operasional untuk kegiatan hari besar keagamaan.",
+                    "E": "Masuknya misionaris asing pemegang ajaran Shinto yang melakukan kegiatan kristenisasi secara terang-terangan di pedesaan Jawa."
+                },
+                "correct": "B",
+                "rationale": "Ritual Seikerei mewajibkan membungkuk 90 derajat ke timur laut mengarah kediaman Kaisar Teno Heika yang dipercaya keturunan dewa matahari, yang bertentangan dengan iman ketauhidan Islam, sehingga memicu perlawanan berdarah pesantren."
+            },
+            {
+                "id": 19,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Perlawanan PETA Blitar",
+                "question": "Pemberontakan tentara PETA di Blitar pada 14 Februari 1945 dipimpin oleh Shodanco Supriyadi merupakan salah satu pergolakan bersenjata terbesar di internal militer binaan Jepang. Analisislah motif mendasar yang mendorong Supriyadi dan rekan-rekannya melakukan pembangkangan mematikan tersebut!",
+                "options": {
+                    "A": "Tuntutan kenaikan upah harian serta fasilitas perumahan mewah bagi keluarga perwira PETA yang ditolak oleh komandan Jepang.",
+                    "B": "Adanya hasutan rahasia dari agen rahasia Sekutu yang menjanjikan pengangkatan instan Supriyadi menjadi panglima perang wilayah Jawa Timur.",
+                    "C": "Rasa kemanusiaan dan keprihatinan yang mendalam menyaksikan penderitaan luar biasa rakyat akibat kekejaman romusha, pemerasan beras, serta diskriminasi perwira Jepang terhadap prajurit pribumi.",
+                    "D": "Perebutan wilayah komando pertahanan pantai selatan Jawa antara kesatuan PETA Blitar dengan kesatuan Heiho Malang.",
+                    "E": "Penolakan terhadap rencana pembubaran batalyon PETA Blitar yang akan digantikan oleh unit militer kepolisian Jepang."
+                },
+                "correct": "C",
+                "rationale": "Para shodanco didikan PETA tidak tahan lagi melihat kenyataan tragis romusha kelaparan di lapangan dan penindasan paksa atas kedaulatan tanah leluhur mereka oleh para mentor perwira militer Jepang."
+            },
+            {
+                "id": 20,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Akhir Pendudukan (Janji Koiso)",
+                "question": "Pada 7 September 1944, Perdana Menteri Kuniaki Koiso mengumumkan janji kemerdekaan bagi bangsa Indonesia di kemudian hari (Janji Koiso). Apa latar belakang kalkulasi politik utama di balik dikeluarkannya janji tersebut oleh pemerintah pusat Jepang?",
+                "options": {
+                    "A": "Jepang telah berhasil memenangi seluruh rangkaian pertempuran laut melawan armada Sekutu di Samudra Hindia.",
+                    "B": "Sikap tulus dari kaisar Jepang yang menyadari bahwa penjajahan militer bertentangan dengan kemanusiaan global.",
+                    "C": "Posisi militer Jepang yang semakin terdesak dalam Perang Asia Timur Raya, sehingga Jepang membutuhkan bantuan fisik dan simpati rakyat Indonesia untuk memperkuat barisan pertahanan.",
+                    "D": "Tekanan diplomatik dan sanksi boikot ekonomi yang dijatuhkan oleh Majelis Umum Perserikatan Bangsa-Bangsa (PBB).",
+                    "E": "Keberhasilan tokoh nasionalis Indonesia menduduki parlemen pusat di Tokyo melalui pemilu demokratis."
+                },
+                "correct": "C",
+                "rationale": "Karena situasi perang yang berbalik kekalahan di Front Pasifik, Jepang terpaksa merayu simpati dan membujuk para tokoh nasional serta pemuda Indonesia agar bersedia ikhlas bergotong-royong memanggul beban perang menahan Sekutu."
+            },
+            {
+                "id": 21,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Kekalahan Jepang & Vacuum of Power",
+                "question": "Hancurnya kota Hiroshima dan Nagasaki akibat bom atom memaksa Kaisar Hirohito mengumumkan penyerahan tanpa syarat Jepang kepada Sekutu pada 15 Agustus 1945. Analisislah kausalitas (hubungan sebab-akibat) peristiwa sejarah menyerahnya Jepang tersebut terhadap terciptanya situasi vacuum of power di Indonesia!",
+                "options": {
+                    "A": "Penyerahan Jepang membuat Sekutu langsung menempatkan ribuan tentaranya di kota-kota besar Indonesia tepat pada hari yang sama.",
+                    "B": "Penyerahan tersebut melumpuhkan wewenang politik pasukan Jepang di Indonesia, sementara pasukan Sekutu yang memenangi perang belum mendarat, sehingga terjadi kekosongan kekuasaan resmi.",
+                    "C": "Pasukan Belanda (NICA) memanfaatkan momentum tersebut untuk mengumumkan berdirinya negara boneka baru di Sumatra.",
+                    "D": "Seluruh administrasi sipil dan militer Jepang di Jakarta melakukan aksi pemogokan kerja massal dan merusak gedung-gedung perkantoran.",
+                    "E": "Sukarno dan Hatta ditawan oleh sisa-sisa intelijen militer Jepang agar tidak dapat berkomunikasi dengan dunia internasional."
+                },
+                "correct": "B",
+                "rationale": "Kekalahan jepang memicu transisi kekosongan kekuasaan (vacuum of power). Jepang tidak lagi absah memegang kekuasaan de jure penuh, sedangkan Sekutu pemenang belum menapakkan kaki di Indonesia."
+            },
+            {
+                "id": 22,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Undangan Terauchi ke Dalat",
+                "question": "Pada 9 Agustus 1945, Sukarno, Moh. Hatta, dan Radjiman Wedyodiningrat memenuhi undangan Panglima Komando Selatan Jepang Marsekal Terauchi di Dalat (Vietnam). Apa makna dari motivasi politik terselubung Jepang mengundang para pemimpin Indonesia tersebut ke Vietnam di tengah ancaman kekalahan Jepang?",
+                "options": {
+                    "A": "Jepang ingin membujuk para pemimpin bangsa agar bersedia ikut mengungsi ke markas pertahanan cadangan Jepang di Tokyo.",
+                    "B": "Upaya meredam gejolak revolusi bersenjata di Indonesia dengan menjanjikan kemerdekaan resmi pada 24 Agustus 1945 agar proses transisi tetap berada di bawah kendali administratif Jepang.",
+                    "C": "Mengumumkan penggabungan wilayah Indonesia ke dalam federasi militer bersama dengan negara-negara jepang sekutu.",
+                    "D": "Melakukan negosiasi jual-beli aset kilang minyak bumi peninggalan Belanda yang ada di Sumatra secara komersial.",
+                    "E": "Menguji kesiapan fisik dan mental Sukarno sebelum ditunjuk menjadi kolonel militer kehormatan Angkatan Darat Jepang."
+                },
+                "correct": "B",
+                "rationale": "Dengan mengoordinasikan janji kemerdekaan via badan PPKI, Jepang berharap dapat memegang kendali atas kedaulatan baru Indonesia agar ramah pada kepentingan geopolitik Jepang di Pasifik pasca-perang."
+            },
+            {
+                "id": 23,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Dinamika Rengasdengklok (Perbedaan)",
+                "question": "Kembalinya Sukarno-Hatta dari Dalat memicu perbedaan pandangan yang tajam dengan golongan muda mengenai pelaksanaan proklamasi. Analisislah secara kritis penyebab mendasar perbedaan pandangan kedua golongan pejuang tersebut menjelang peristiwa proklamasi!",
+                "options": {
+                    "A": "Golongan tua menolak gagasan kemerdekaan, sedangkan golongan muda bertekad merdeka tanpa batas waktu.",
+                    "B": "Golongan tua menghendaki sistem pemerintahan presidensial, sedangkan golongan muda menginginkan sistem parlementer.",
+                    "C": "Golongan tua ingin proklamasi dipersiapkan secara legal-konstitusional melalui sidang PPKI agar tidak memicu konflik bersenjata dengan Jepang, sedangkan golongan muda menolak PPKI karena menganggapnya badan buatan Jepang dan mendesak proklamasi murni kekuatan bangsa.",
+                    "D": "Golongan tua ingin bersekutu dengan kekuatan Belanda, sedangkan golongan muda menuntut kerja sama dengan tentara Sekutu.",
+                    "E": "Golongan tua menolak pembacaan teks di Jakarta karena kondisi kota tidak kondusif, sedangkan golongan muda bersikeras membacakan di Ikada."
+                },
+                "correct": "C",
+                "rationale": "Golongan muda khawatir proklamasi melalui PPKI akan membuat Sekutu melabeli RI sebagai negara 'hadiah boneka' bikinan fasis Jepang, sementara golongan tua menginginkan transisi damai dan menghindari tumpah darah akibat melanggar komando militer Jepang."
+            },
+            {
+                "id": 24,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Dinamika Rengasdengklok (Pengamanan)",
+                "question": "Pada tanggal 16 Agustus 1945 dini hari, kelompok pemuda melakukan tindakan mengamankan Sukarno dan Moh. Hatta ke daerah Rengasdengklok, Karawang. Alasan taktis-politis di balik keputusan golongan muda membawa kedua tokoh nasional tersebut keluar dari Jakarta adalah...",
+                "options": {
+                    "A": "Melindungi Sukarno dan Hatta dari ancaman penangkapan rahasia yang direncanakan oleh dinas intelijen Sekutu.",
+                    "B": "Menjauhkan Sukarno dan Hatta dari pengaruh, tekanan, maupun intervensi politik pemerintah militer Jepang di Jakarta agar mereka bebas menentukan momentum kemerdekaan mandiri.",
+                    "C": "Memaksa kedua tokoh tersebut untuk menyetujui pergantian kepemimpinan nasional dari golongan tua kepada golongan muda.",
+                    "D": "Mempersiapkan upacara proklamasi militer bersama unit pertahanan gerilya bersenjata di pedalaman Karawang.",
+                    "E": "Menyembunyikan kedua tokoh nasionalis tersebut dari intaian serangan bom udara yang akan dijatuhkan Sekutu di Jakarta."
+                },
+                "correct": "B",
+                "rationale": "Para pemuda ingin mengisolasi dwi-tunggal dari lobi diplomatik, desakan, maupun ancaman para pejabat militer Jepang di Jakarta, sehingga mereka bersedia bersepakat memproklamasikan kedaulatan murni perjuangan sendiri."
+            },
+            {
+                "id": 25,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Keputusan Peristiwa Rengasdengklok",
+                "question": "Ketegangan di Rengasdengklok akhirnya mereda setelah kedatangan Ahmad Soebardjo yang bertindak sebagai mediator antara golongan tua dan golongan muda. Poin keputusan konkret apa yang disepakati untuk mengakhiri peristiwa Rengasdengklok tersebut?",
+                "options": {
+                    "A": "Penundaan pelaksanaan upacara proklamasi kemerdekaan hingga pertengahan bulan September 1945.",
+                    "B": "Jaminan taruhan nyawa dari Ahmad Soebardjo bahwa proklamasi kemerdekaan Indonesia akan dilaksanakan di Jakarta selambat-lambatnya pada tanggal 17 Agustus 1945.",
+                    "C": "Persetujuan pembentukan komite pertahanan militer nasional yang anggotanya murni terdiri dari golongan pemuda pejuang.",
+                    "D": "Pemindahan lokasi upacara pembacaan teks kemerdekaan dari Jakarta ke markas PETA di wilayah Rengasdengklok.",
+                    "E": "Kesepakatan untuk membubarkan panitia PPKI dan menggantinya dengan badan perjuangan rakyat bentukan pemuda."
+                },
+                "correct": "B",
+                "rationale": "Ahmad Soebardjo memberikan jaminan mutlak dengan nyawanya sendiri sebagai taruhan bahwa proklamasi akan dijalankan esok hari di Jakarta, meluluhkan keraguan pemuda untuk melepaskan Sukarno-Hatta."
+            },
+            {
+                "id": 26,
+                "level": "Level Kognitif 5",
+                "indicator": "Materi: Kepemimpinan Tokoh di Rengasdengklok",
+                "question": "Selama berada di Rengasdengklok, Sukarno dan Moh. Hatta ditekan secara psikologis dan politis oleh para pemuda bersenjata untuk segera mengumumkan kemerdekaan. Meskipun demikian, kedua tokoh nasional tersebut tetap tenang, menolak emosi, dan mengutamakan kalkulasi rasional demi menghindari pembantaian massal rakyat sipil oleh sisa tentara Jepang. Bagaimana Anda menilai kualitas kepemimpinan Sukarno-Hatta dalam situasi krisis ini?",
+                "options": {
+                    "A": "Menunjukkan karakter kepemimpinan yang bimbang dan cenderung bergantung pada janji-janji kompromi pejabat kolonial.",
+                    "B": "Mencerminkan kematangan kualitas kenegarawanan yang visioner dan penuh perhitungan strategis, di mana keselamatan jiwa rakyat diutamakan di atas ego heroisme kelompok sesaat.",
+                    "C": "Menandakan ketidakpedulian mutlak terhadap aspirasi perubahan cepat yang disuarakan oleh kalangan pemuda revolusioner.",
+                    "D": "Menunjukkan ketakutan pribadi akan ancaman hukuman disiplin militer yang mungkin dijatuhkan oleh pengadilan militer Jepang.",
+                    "E": "Menunjukkan kegagalan taktis kepemimpinan karena membiarkan diri mereka diisolasi dari pusat informasi penting di kota Jakarta."
+                },
+                "correct": "B",
+                "rationale": "Sikap pragmatis-realistis dwi-tunggal membuktikan kematangan mental mereka. Terburu-buru memberontak tanpa persiapan matang menghadapi senjata sisa garnison Jepang di Jakarta berisiko mematikan revolusi sejak awal."
+            },
+            {
+                "id": 27,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Tokoh Perumus Naskah Proklamasi",
+                "question": "Setelah kembali dari Rengasdengklok pada malam 16 Agustus 1945, para pemimpin nasional merumuskan naskah teks proklamasi di rumah Laksamana Tadashi Maeda. Tokoh nasional yang berperan menuliskan draf asli tulisan tangan naskah proklamasi tersebut adalah...",
+                "options": {
+                    "A": "Mohammad Hatta",
+                    "B": "Ahmad Soebardjo",
+                    "C": "Ir. Sukarno",
+                    "D": "Sayuti Melik",
+                    "E": "Sukarni"
+                },
+                "correct": "C",
+                "rationale": "Ir. Sukarno menulis langsung draf klad (tulisan tangan) pada secarik kertas kosong berdasarkan sumbangan pemikiran narasi kalimat pertama dari Soebardjo dan kalimat kedua dari Moh. Hatta."
+            },
+            {
+                "id": 28,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Signifikansi Pemilihan Waktu Proklamasi",
+                "question": "Proklamasi kemerdekaan diputuskan dibacakan pada hari Jumat, 17 Agustus 1945 pukul 10.00 WIB di Pegangsaan Timur No. 56 Jakarta. Analisislah signifikansi pemilihan momentum tanggal dan waktu tersebut dikaitkan dengan dinamika politik internasional pasca-kekalahan Jepang!",
+                "options": {
+                    "A": "Memanfaatkan secara cepat celah sempit kekosongan kekuasaan sebelum tentara Sekutu mendarat untuk memulihkan kekuasaan kolonial Belanda di Indonesia.",
+                    "B": "Menunggu selesainya rapat koordinasi keamanan antara Sekutu dengan jenderal-jenderal pertahanan Jepang di Singapura.",
+                    "C": "Menghindari bertepannya tanggal pembacaan dengan hari libur nasional kekaisaran Jepang di Tokyo.",
+                    "D": "Menyelaraskan tanggal kemerdekaan dengan momentum penyerahan dokumen penyerahan kekuasaan Belanda kepada Sekutu.",
+                    "E": "Menjamin kehadiran seluruh perwakilan diplomatik negara tetangga untuk menyaksikan upacara kedaulatan RI secara langsung."
+                },
+                "correct": "A",
+                "rationale": "Pilihan 17 Agustus 1945 sangat krusial. Jika ditunda hingga Sekutu mendarat (menjelang akhir Agustus/September), Belanda dipastikan mengklaim kepemilikan sah Hindia Belanda dan meredam seluruh manuver kedaulatan RI."
+            },
+            {
+                "id": 29,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Sikap & Peran Laksamana Maeda",
+                "question": "Laksamana Tadashi Maeda, seorang perwira tinggi militer Jepang (Kaigun), bersedia mengizinkan rumah dinasnya digunakan sebagai tempat perumusan teks proklamasi dan menjamin keselamatan para tokoh nasional dari patroli Angkatan Darat Jepang (Rikugun). Interpretasikan makna dari sikap tindakan Laksamana Maeda tersebut bagi kelancaran perjuangan kemerdekaan Indonesia!",
+                "options": {
+                    "A": "Tindakan Maeda merupakan bagian dari taktik intelijen rahasia untuk menjebak seluruh tokoh nasional agar mudah ditangkap oleh Sekutu.",
+                    "B": "Wujud simpati kemanusiaan yang mendalam serta persahabatan intelektual pribadi Maeda dengan tokoh nasional Indonesia, sekaligus memanfaatkan konflik internal Kaigun-Rikugun untuk memuluskan proklamasi.",
+                    "C": "Upaya komersial terselubung Maeda guna mengamankan kepemilikan aset-aset bisnis pribadinya di Jakarta pasca-perang selesai.",
+                    "D": "Maeda bertindak murni atas perintah tertulis resmi dari markas besar kaisar Jepang yang mengharuskan penyerahan aset kedaulatan sipil kepada Indonesia.",
+                    "E": "Sikap Maeda didorong oleh ketakutan pribadinya akan aksi teror fisik yang mungkin dilancarkan oleh pemuda bawah tanah di Jakarta."
+                },
+                "correct": "B",
+                "rationale": "Laksamana Maeda memiliki kedekatan tulus dengan Ahmad Soebardjo dan beberapa intelektual muda. Di bawah perlindungan dinas Angkatan Lautnya (Kaigun), ia melidungi aktivitas perumusan dari kejaran Rikugun (AD Jepang) yang berkarakter sangat kaku harian."
+            },
+            {
+                "id": 30,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Istilah Kunci (Political Pressure)",
+                "question": "Dalam kronologi sejarah sekitar proklamasi, terjadi dinamika yang kencang berupa 'political pressure' (tekanan politik) dari golongan muda terhadap golongan tua. Manakah definisi yang paling akurat dari istilah 'political pressure' dalam konteks interaksi sejarah antargolongan tersebut?",
+                "options": {
+                    "A": "Tindakan agresi militer terbuka menggunakan senjata api untuk menjatuhkan wibawa kepemimpinan nasionalis.",
+                    "B": "Proses diplomasi bilateral resmi yang dimediasi oleh organisasi perdamaian dunia di bawah pengawasan Sekutu.",
+                    "C": "Upaya pemaksaan kehendak secara taktis melalui desakan moral, aksi pengamanan tokoh, dan adu argumentasi politik yang ketat agar golongan tua segera mengambil keputusan berani demi kepentingan bangsa tanpa intervensi asing.",
+                    "D": "Pemberian sanksi boikot ekonomi dan penutupan jalur logistik makanan bagi kelompok penentang keputusan pemuda.",
+                    "E": "Pengabaian total terhadap seluruh masukan dan nasihat politik yang diberikan oleh kalangan intelektual senior."
+                },
+                "correct": "C",
+                "rationale": "Political pressure merupakan desakan taktis non-perang terbuka. Di Rengasdengklok, pemuda mendesak Sukarno secara intensif melalui argumen tajam tanpa berniat melukai fisik sang dwi-tunggal."
+            },
+            {
+                "id": 31,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Interpretasi Filosofis Teks Proklamasi",
+                "question": "Kalimat pertama naskah proklamasi yang berbunyi: 'Kami bangsa Indonesia dengan ini menyatakan kemerdekaan Indonesia'. Interpretasikan makna filosofis di balik pernyataan deklaratif tersebut dikaitkan dengan kedaulatan bangsa Indonesia!",
+                "options": {
+                    "A": "Pernyataan tersebut menandakan bahwa kemerdekaan Indonesia merupakan hasil kerja sama regional dengan kekaisaran Asia Timur Raya.",
+                    "B": "Deklarasi tegas bahwa bangsa Indonesia secara mandiri memegang hak mutlak atas kedaulatan negaranya sendiri dan telah melepaskan diri dari segala bentuk belenggu penjajahan asing.",
+                    "C": "Sebuah maklumat bahwa Indonesia bersedia memindahkan pusat administrasi negaranya di bawah pengawasan peradilan internasional.",
+                    "D": "Pengumuman formal bahwa Indonesia bersedia berbagi kedaulatan wilayah bersama dengan kekuatan militer pemenang perang.",
+                    "E": "Pernyataan hukum bahwa kemerdekaan baru dianggap sah jika telah ditandatangani oleh seluruh anggota PPKI."
+                },
+                "correct": "B",
+                "rationale": "Kalimat pertama menegaskan aspek kedaulatan subjektif-objektif bangsa. Kemerdekaan bukan lagi wacana masa depan atau angan-angan sosiologis, melainkan aksi kedaulatan mutlak yang dinyatakan detik itu juga."
+            },
+            {
+                "id": 32,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Alasan Perubahan Lokasi Proklamasi",
+                "question": "Rencana awal pembacaan proklamasi kemerdekaan akan diselenggarakan secara massal di Lapangan Ikada, namun secara mendadak dialihkan ke Jalan Pegangsaan Timur No. 56 Jakarta. Analisislah alasan logis di balik pengalihan lokasi pelaksanaan upacara proklamasi tersebut!",
+                "options": {
+                    "A": "Terjadinya kendala cuaca buruk berupa badai angin di sekitar Lapangan Ikada yang merusak fasilitas panggung upacara.",
+                    "B": "Para pemuda pejuang menolak hadir di Lapangan Ikada karena jaraknya dinilai terlalu jauh dari stasiun kereta api utama.",
+                    "C": "Menghindari potensi terjadinya bentrokan fisik berdarah massal dengan pasukan militer Jepang bersenjata lengkap yang telah mengepung dan menjaga ketat Lapangan Ikada.",
+                    "D": "Lapangaan Ikada sedang ditutup oleh dinas pariwisata kota Jakarta karena adanya proyek perbaikan rumput lapangan.",
+                    "E": "Desakan dari Laksamana Maeda yang menginginkan agar upacara pembacaan dilaksanakan di dalam pekarangan rumah dinasnya sendiri."
+                },
+                "correct": "C",
+                "rationale": "Kempeitai Jepang sudah mengendus mobilisasi massa Ikada dan menyiagakan barikade lapis baja. Sukarno memutuskan pemindahan ke kediaman pribadinya di Pegangsaan Timur untuk memotong potensi konflik senjata pra-proklamasi."
+            },
+            {
+                "id": 33,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Hambatan Penyebaran Berita Kemerdekaan",
+                "question": "Berita mengenai proklamasi kemerdekaan Indonesia mengalami keterlambatan penerimaan di berbagai wilayah luar Pulau Jawa. Faktor penghambat utama yang menghalangi penyebaran berita kemerdekaan tersebut ke pulau-pulau lain adalah...",
+                "options": {
+                    "A": "Sikap apatis masyarakat luar Jawa yang tidak tertarik dengan berdirinya negara baru Republik Indonesia.",
+                    "B": "Terbatasnya sarana komunikasi radio-telegraf dan jalur transportasi antarpulau, disertai sensor ketat serta tindakan represif militer Jepang di daerah yang dipaksa Sekutu menjaga status quo.",
+                    "C": "Adanya instruksi rahasia dari Sukarno agar berita kemerdekaan tidak disebarkan ke daerah pelosok sebelum kabinet terbentuk.",
+                    "D": "Terjadinya pemogokan kerja massal oleh para pelaut pribumi yang menolak mengoperasikan kapal-kapal ekspedisi barang.",
+                    "E": "Kerusakan permanen pada seluruh jaringan kabel komunikasi bawah laut akibat gempa bumi tektonik nasional."
+                },
+                "correct": "B",
+                "rationale": "Garnisun Jepang di berbagai daerah luar Jawa masih mematuhi penuh instruksi status quo Sekutu untuk menutup gerbang penyiaran publik dan menyensor berita-berita berbau kemerdekaan, mempersulit penyebaran berita kemerdekaan."
+            },
+            {
+                "id": 34,
+                "level": "Level Kognitif 1",
+                "indicator": "Materi: Media Penyebaran Berita Proklamasi",
+                "question": "Meskipun dalam pengawasan militer Jepang, salah satu kantor berita di Surabaya menunjukkan keberanian luar biasa dengan memuat berita proklamasi kemerdekaan pada edisi cetaknya di bulan Agustus 1945. Nama surat kabar bersejarah tersebut adalah...",
+                "options": {
+                    "A": "Kedaulatan Rakyat",
+                    "B": "Soeara Asia",
+                    "C": "Bataviase Courant",
+                    "D": "Pikiran Rakyat",
+                    "E": "De Locomotief"
+                },
+                "correct": "B",
+                "rationale": "Surat kabar 'Soeara Asia' di Surabaya mencetak ulang teks proklamasi pada terbitan Agustus 1945, menyalakan pemantik api revolusi kemerdekaan ke seluruh kawasan Indonesia Tengah dan Timur."
+            },
+            {
+                "id": 35,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Taktik Penyebaran Radio Domei",
+                "question": "Para pemuda penyiar radio di kantor berita Domei (Jakarta) menyebarkan berita proklamasi ke seluruh penjuru dunia melalui pemancar radio. Apa tindakan cerdik yang dilakukan oleh para pemuda pejuang tersebut setelah pemancar radio resmi kantor mereka disegel dan dijaga ketat oleh Kempeitai (Polisi Militer Jepang)?",
+                "options": {
+                    "A": "Menutup stasiun radio tersebut secara damai dan beralih menggunakan media selebaran kertas pamflet.",
+                    "B": "Menyelundupkan peralatan siaran ke rumah diplomat asing untuk menumpang siaran radio internasional.",
+                    "C": "Merakit kembali pemancar radio baru secara sembunyi-sembunyi dari suku cadang bekas di Menteng 31 dan melanjutkan siaran kemerdekaan secara gerilya dari lokasi rahasia.",
+                    "D": "Mengirimkan surat keberatan resmi kepada markas besar Sekutu di Singapura agar segel radio dibuka kembali.",
+                    "E": "Menyandera perwira Kempeitai agar bersedia membuka kembali kunci ruang pemancar utama stasiun Domei."
+                },
+                "correct": "C",
+                "rationale": "Ketika segel mati Kempeitai mengancam peredaran siaran, Yusuf Ronodipuro dkk menyelundupkan suku cadang, merakit pemancar darurat baru di kawasan Menteng 31, dan bersiaran tanpa putus dari lokasi sunyi."
+            },
+            {
+                "id": 36,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Variasi Respons Masyarakat di Daerah",
+                "question": "Perhatikan Ilustrasi Sejarah Berikut:\n\"Ketika berita proklamasi tiba di Surabaya, para pemuda segera menyambutnya dengan teriakan merdeka dan merobek warna biru bendera Belanda di Hotel Yamato. Di sisi lain, di beberapa daerah karesidenan pedalaman Sumatra dan Kalimantan, para tokoh adat dan masyarakat cenderung menyikapi berita tersebut dengan sikap berhati-hati, waspada, serta menanti kejelasan instruksi administrasi sipil pusat.\"\n\nBerdasarkan ilustrasi di atas, tariklah kesimpulan teoretis yang paling objektif mengenai penyebab adanya variasi respons masyarakat di berbagai daerah terhadap berita kemerdekaan!",
+                "options": {
+                    "A": "Rakyat pedalaman luar Jawa kurang memiliki rasa patriotisme dibandingkan dengan para pemuda perkotaan di Jawa.",
+                    "B": "Variasi respons dipengaruhi secara langsung oleh perbedaan kecepatan transmisi informasi, tingkat pemahaman terhadap esensi berita, serta intensitas intimidasi dan kekuatan bersenjata garnisun Jepang setempat.",
+                    "C": "Tokoh adat di pedalaman telah menandatangani perjanjian kesetiaan rahasia dengan Belanda sebelum Jepang menyerah kalah.",
+                    "D": "Golongan pemuda perkotaan sengaja menutup akses informasi bagi masyarakat pedesaan agar tidak ikut berebut kekuasaan.",
+                    "E": "Perbedaan tingkat kecerdasan kognitif antarsuku bangsa di Indonesia dalam menganalisis berita kemerdekaan."
+                },
+                "correct": "B",
+                "rationale": "Intensitas penjagaan sisa garnisun Jepang yang masih bersenjata lengkap sangat memengaruhi psikologis pergerakan daerah. Tokoh daerah harus cermat menakar kekuatan fisik sebelum mengambil keputusan revolusi terbuka."
+            },
+            {
+                "id": 37,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Makna Dukungan Hamengkubuwono IX",
+                "question": "Pasca-proklamasi dikumandangkan, muncul berbagai reaksi spontan berupa dukungan penuh, salah satunya adalah Maklumat 5 September 1945 dari Sultan Hamengkubuwono IX yang menyatakan Yogyakarta sebagai bagian dari wilayah Republik Indonesia. Analisislah makna politik penting dari reaksi dukungan spontan penguasa monarki tradisional tersebut bagi masa depan RI!",
+                "options": {
+                    "A": "Yogyakarta ingin diakui sebagai satu-satunya pusat perdagangan rempah-rempah resmi oleh Sekutu.",
+                    "B": "Memberikan suntikan legitimasi kedaulatan sosial, politik, dan teritorial yang kokoh bahwa negara baru RI didukung penuh oleh entitas kerajaan berdaulat yang disegani rakyat.",
+                    "C": "Memicu kecemburuan politik dari kerajaan-kerajaan luar Jawa yang merasa tidak dilibatkan dalam pembentukan pemerintahan baru.",
+                    "D": "Memaksa Sukarno untuk meletakkan jabatan presiden agar digantikan oleh dinasti keluarga kraton Yogyakarta.",
+                    "E": "Yogyakarta berambisi memisahkan diri sepenuhnya dari rencana pembentukan negara kesatuan berbentuk republik."
+                },
+                "correct": "B",
+                "rationale": "Dukungan resmi kraton Yogyakarta melipatgandakan pengakuan moral hukum kedaulatan RI di dunia internasional, membuktikan kedaulatan baru ini didukung segenap entitas kerajaan pribumi berakar sejarah kuat."
+            },
+            {
+                "id": 38,
+                "level": "Level Kognitif 4",
+                "indicator": "Materi: Karakter Dukungan & Perlucutan Senjata",
+                "question": "Dukungan rakyat terhadap proklamasi kemerdekaan segera berkembang dari sekadar rapat damai menjadi aksi fisik berani berupa perlucutan senjata tentara Jepang dan pengambilalihan paksa aset-aset vital (pabrik, jaringan kereta api, kantor pos). Analisislah kaitan taktis aksi perlucutan senjata ini dengan upaya mempertahankan kemerdekaan nasional!",
+                "options": {
+                    "A": "Rakyat ingin mengumpulkan senjata tersebut untuk dihancurkan bersama demi terciptanya perdamaian sipil universal.",
+                    "B": "Menunjukkan karakter dukungan rakyat yang sadar bahwa kedaulatan fisik membutuhkan modal kekuatan militer bersenjata guna menghadapi ancaman kembalinya kolonialisme Belanda (NICA).",
+                    "C": "Aksi perebutan senjata murni didasari oleh motif ekonomi untuk menjual senjata api tersebut di pasar gelap internasional.",
+                    "D": "Memenuhi instruksi tertulis Sekutu yang menjanjikan pengakuan kemerdekaan instan jika rakyat berhasil melumpuhkan Jepang.",
+                    "E": "Mengurangi pasokan persenjataan agar sisa tentara Jepang bersedia tunduk di bawah kekuasaan adat kepulauan."
+                },
+                "correct": "B",
+                "rationale": "Rakyat dan barisan pemuda sadar betul kedaulatan tanpa daya perlindungan militer fisik akan mudah dihancurkan Belanda. Merebut senjata Jepang adalah satu-satunya modal kilat mengamankan kedaulatan."
+            },
+            {
+                "id": 39,
+                "level": "Level Kognitif 2",
+                "indicator": "Materi: Penyebab Konflik Perlucutan Senjata",
+                "question": "Bentrokan fisik berdarah sering kali meletus di berbagai daerah ketika para pemuda pejuang Indonesia melakukan aksi perlucutan senjata terhadap tentara Jepang. Apa penyebab spesifik terjadinya konflik fisik yang mematikan tersebut?",
+                "options": {
+                    "A": "Sikap tentara Jepang yang berpegang teguh pada perintah Sekutu untuk memelihara status quo pertahanan wilayah dan melarang keras penyerahan senjata kepada pejuang Indonesia.",
+                    "B": "Keinginan tentara Jepang untuk tetap menduduki posisi sebagai pejabat administrasi sipil di seluruh kelurahan Jawa.",
+                    "C": "Adanya kecurigaan Jepang bahwa pejuang Indonesia akan menggunakan senjata tersebut untuk menyerbu wilayah kedaulatan Jepang di Pasifik.",
+                    "D": "Ketidakmampuan bahasa kedua belah pihak yang memicu kesalahpahaman saat proses serah terima barang dilakukan di lapangan.",
+                    "E": "Aksi penolakan dari pihak pejuang Indonesia untuk memberikan jaminan jalur pemulangan aman bagi keluarga sipil Jepang."
+                },
+                "correct": "A",
+                "rationale": "Jepang diposisikan terjepit. Sekutu mengancam menghukum para jenderal Jepang bila membiarkan persenjataan jatuh ke tangan kombatan Indonesia, sementara di sisi lain pejuang bertekad merebutnya demi senjata bela negara."
+            },
+            {
+                "id": 40,
+                "level": "Level Kognitif 5",
+                "indicator": "Materi: Kesimpulan Esensi Perjuangan",
+                "question": "Dari seluruh rangkaian sejarah yang kita pelajari—mulai dari modernisasi Jepang, penderitaan era pendudukan, dinamika menegangkan di Rengasdengklok, heroisme perumusan naskah proklamasi, hingga aksi fisik perlucutan senjata di berbagai daerah—buatlah kesimpulan komprehensif mengenai esensi sejati perjuangan kemerdekaan Indonesia!",
+                "options": {
+                    "A": "Kemerdekaan Indonesia pada dasarnya merupakan hadiah politik taktis yang diberikan secara berencana oleh kekaisaran Jepang.",
+                    "B": "Perjuangan kemerdekaan murni mengandalkan kekuatan diplomasi meja runding tanpa memerlukan pengorbanan aksi fisik bersenjata di lapangan.",
+                    "C": "Kemerdekaan Indonesia bukanlah hadiah dari penjajah, melainkan karya agung perjuangan yang lahir dari sinergi taktis antargolongan pejuang, ketahanan mental rakyat, serta kalkulasi politis rasional yang visioner dari para pemimpin bangsa.",
+                    "D": "Kemerdekaan hanyalah pergantian tampuk kekuasaan administratif dari penjajah asing ke kalangan elite terdidik di Jakarta tanpa mengubah kondisi rakyat bawah.",
+                    "E": "Perjuangan tersebut berhasil berjalan mulus tanpa adanya rintangan keamanan atau gesekan taktis baik internal maupun eksternal."
+                },
+                "correct": "C",
+                "rationale": "Esensi kemerdekaan Indonesia adalah kolaborasi nasional multi-jalur. Tanpa desakan fisik pemuda, kelugasan taktis dwi-tunggal, serta pengorbanan bersenjata pejuang daerah, kemerdekaan tidak akan tegak berdiri berdaulat."
+            }
+        ];
+
+        // QUIZ STATE VARIABLES
+        let currentQuestionIdx = 0;
+        let userAnswers = new Array(quizData.length).fill(null); // stores selected keys (A, B, C, D, E)
+        let quizStartTime = null;
+        let timerInterval = null;
+        let studentData = { name: "", class: "" };
+
+        // INITIALIZE APP
+        window.onload = function() {
+            renderJumpGrid();
+        };
+
+        // STEP 1: START THE QUIZ
+        function startQuiz() {
+            const nameInput = document.getElementById("student-name").value.trim();
+            const classSelect = document.getElementById("student-class").value;
+
+            if (!nameInput) return;
+
+            studentData.name = nameInput;
+            studentData.class = classSelect;
+
+            // Update Displays
+            document.getElementById("profile-display-name").innerText = studentData.name;
+            document.getElementById("profile-display-class").innerText = "Kelas: " + studentData.class;
+
+            // Switch Screen View
+            document.getElementById("screen-start").classList.add("hidden");
+            document.getElementById("screen-quiz").classList.remove("hidden");
+            document.getElementById("badge-timer").classList.remove("hidden");
+
+            // Start Clock
+            quizStartTime = new Date();
+            startTimer();
+
+            // Load First Question
+            loadQuestion(0);
+        }
+
+        // TIMER HANDLER
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                const now = new Date();
+                const diff = now - quizStartTime;
+                const totalSeconds = Math.floor(diff / 1000);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+
+                const displayStr = 
+                    (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+                    (seconds < 10 ? "0" + seconds : seconds);
+                
+                document.getElementById("quiz-timer").innerText = displayStr;
+            }, 1000);
+        }
+
+        // LOAD CURRENT QUESTION TO BOX
+        function loadQuestion(idx) {
+            currentQuestionIdx = idx;
+            const q = quizData[idx];
+
+            // Render Header Texts
+            document.getElementById("quiz-question-number").innerText = "Soal " + (idx + 1);
+            document.getElementById("quiz-indicator-level").innerText = q.level;
+            document.getElementById("quiz-indicator-title").innerText = q.indicator;
+            document.getElementById("quiz-question-text").innerText = q.question;
+
+            // Render Options
+            const container = document.getElementById("quiz-options-container");
+            container.innerHTML = "";
+
+            const hasAnswered = userAnswers[idx] !== null;
+
+            for (let opt in q.options) {
+                const optText = q.options[opt];
+                const btn = document.createElement("button");
+                btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-200 hover:bg-slate-50 transition-all flex items-start space-x-3 text-sm focus:outline-none";
+                btn.id = `opt-${opt}`;
+
+                // Add letter circle badge
+                const letterBadge = document.createElement("span");
+                letterBadge.className = "flex-shrink-0 w-6 h-6 rounded-full border border-slate-300 bg-white flex items-center justify-center font-bold text-xs text-slate-500 shadow-sm transition";
+                letterBadge.innerText = opt;
+
+                const textSpan = document.createElement("span");
+                textSpan.className = "text-slate-700 leading-relaxed font-medium";
+                textSpan.innerText = optText;
+
+                btn.appendChild(letterBadge);
+                btn.appendChild(textSpan);
+
+                // If user already clicked some option for this question earlier
+                if (hasAnswered) {
+                    btn.disabled = true;
+                    const chosen = userAnswers[idx];
+                    const correct = q.correct;
+
+                    if (opt === correct) {
+                        // Highlight as correct answer (always green)
+                        btn.className = "w-full text-left p-3.5 rounded-xl border-2 border-green-600 bg-green-50/50 flex items-start space-x-3 text-sm font-semibold";
+                        letterBadge.className = "flex-shrink-0 w-6 h-6 rounded-full bg-green-600 border border-transparent text-white flex items-center justify-center font-bold text-xs shadow-sm";
+                    } else if (opt === chosen) {
+                        // Highlight user wrong choice (red)
+                        btn.className = "w-full text-left p-3.5 rounded-xl border-2 border-red-500 bg-red-50/50 flex items-start space-x-3 text-sm";
+                        letterBadge.className = "flex-shrink-0 w-6 h-6 rounded-full bg-red-500 border border-transparent text-white flex items-center justify-center font-bold text-xs shadow-sm";
+                    } else {
+                        btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-200 opacity-60 flex items-start space-x-3 text-sm pointer-events-none";
+                    }
+                } else {
+                    // Click Event
+                    btn.onclick = () => selectOption(opt);
+                }
+
+                container.appendChild(btn);
+            }
+
+            // Handle Bottom Feedback Box
+            const feedbackBox = document.getElementById("quiz-feedback-box");
+            if (hasAnswered) {
+                const chosen = userAnswers[idx];
+                const correct = q.correct;
+                const isCorrect = chosen === correct;
+
+                feedbackBox.classList.remove("hidden");
+                const headingEl = document.getElementById("quiz-feedback-heading");
+                const iconEl = document.getElementById("quiz-feedback-icon");
+                const rationaleEl = document.getElementById("quiz-feedback-rationale");
+
+                rationaleEl.innerText = q.rationale;
+
+                if (isCorrect) {
+                    feedbackBox.className = "rounded-xl p-4 transition-all duration-300 bg-green-50 border border-green-200 text-green-900";
+                    headingEl.innerText = "Jawaban Anda Benar!";
+                    iconEl.className = "p-1.5 bg-green-100 text-green-700 rounded-lg mt-0.5";
+                    iconEl.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                } else {
+                    feedbackBox.className = "rounded-xl p-4 transition-all duration-300 bg-red-50 border border-red-200 text-red-900";
+                    headingEl.innerText = `Jawaban Anda Kurang Tepat (Pilihan Anda: ${chosen}, Jawaban Benar: ${correct})`;
+                    iconEl.className = "p-1.5 bg-red-100 text-red-700 rounded-lg mt-0.5";
+                    iconEl.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                }
+            } else {
+                feedbackBox.classList.add("hidden");
+            }
+
+            // Handle Prev/Next Buttons state
+            document.getElementById("btn-prev").disabled = (idx === 0);
+            
+            const btnNextText = document.getElementById("btn-next-text");
+            if (idx === quizData.length - 1) {
+                btnNextText.innerText = "Selesai";
+            } else {
+                btnNextText.innerText = "Selanjutnya";
+            }
+
+            // Highlight Jump Grid Node
+            updateJumpGridStatus();
+            updateProgressBar();
+        }
+
+        // TRIGGER ON CLICKING OPTION
+        function selectOption(selectedOpt) {
+            userAnswers[currentQuestionIdx] = selectedOpt;
+            loadQuestion(currentQuestionIdx); // reload question card to display feedbacks immediately
+        }
+
+        // BUTTON ACTIONS
+        function prevQuestion() {
+            if (currentQuestionIdx > 0) {
+                loadQuestion(currentQuestionIdx - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIdx < quizData.length - 1) {
+                loadQuestion(currentQuestionIdx + 1);
+            } else {
+                confirmFinishQuiz();
+            }
+        }
+
+        // JUMP TO SPECIFIC QUESTION
+        function jumpToQuestion(idx) {
+            loadQuestion(idx);
+        }
+
+        // PROGRESS UTILS
+        function updateProgressBar() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const percentage = Math.round((answeredCount / quizData.length) * 100);
+
+            document.getElementById("progress-percentage").innerText = percentage + "%";
+            document.getElementById("progress-bar-fill").style.width = percentage + "%";
+            document.getElementById("answered-count").innerText = answeredCount + " Terjawab";
+        }
+
+        // BUILD NAVIGATION NUMBERS GRID
+        function renderJumpGrid() {
+            const gridContainer = document.getElementById("jump-grid-container");
+            gridContainer.innerHTML = "";
+
+            for (let i = 0; i < quizData.length; i++) {
+                const btn = document.createElement("button");
+                btn.id = `grid-btn-${i}`;
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs flex items-center justify-center transition focus:outline-none border border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100";
+                btn.innerText = i + 1;
+                btn.onclick = () => jumpToQuestion(i);
+                gridContainer.appendChild(btn);
+            }
+        }
+
+        // RE-EVALUATE GRID HIGHLIGHTS
+        function updateJumpGridStatus() {
+            for (let i = 0; i < quizData.length; i++) {
+                const btn = document.getElementById(`grid-btn-${i}`);
+                if (!btn) continue;
+
+                const hasAnswered = userAnswers[i] !== null;
+                const isCurrent = (i === currentQuestionIdx);
+
+                if (isCurrent) {
+                    btn.className = "h-9 w-full rounded-lg font-extrabold text-xs flex items-center justify-center transition focus:outline-none bg-madrasah-600 text-white shadow-md shadow-madrasah-100";
+                } else if (hasAnswered) {
+                    btn.className = "h-9 w-full rounded-lg font-bold text-xs flex items-center justify-center transition focus:outline-none bg-blue-100 text-blue-700 hover:bg-blue-200";
+                } else {
+                    btn.className = "h-9 w-full rounded-lg font-bold text-xs flex items-center justify-center transition focus:outline-none border border-slate-200 bg-slate-50 text-slate-500 hover:bg-slate-100";
+                }
+            }
+        }
+
+        // FINISH LOGIC - CONFIRMATION
+        function confirmFinishQuiz() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const unansweredCount = quizData.length - answeredCount;
+
+            document.getElementById("modal-answered").innerText = answeredCount + " Soal";
+            document.getElementById("modal-unanswered").innerText = unansweredCount + " Soal";
+
+            document.getElementById("modal-confirm").classList.remove("hidden");
+        }
+
+        function closeModal() {
+            document.getElementById("modal-confirm").classList.add("hidden");
+        }
+
+        // SCORE CALCULATION & FINISH
+        function finishQuiz() {
+            closeModal();
+            clearInterval(timerInterval);
+
+            // Hide Active Quiz Screen, show results screen
+            document.getElementById("screen-quiz").classList.add("hidden");
+            document.getElementById("screen-result").classList.remove("hidden");
+            document.getElementById("badge-timer").classList.add("hidden");
+
+            // Calculate score
+            let correctCount = 0;
+            for (let i = 0; i < quizData.length; i++) {
+                if (userAnswers[i] === quizData[i].correct) {
+                    correctCount++;
+                }
+            }
+
+            const totalScore = correctCount * 2.5; // each worth 2.5, total is 100
+            const incorrectCount = quizData.length - correctCount;
+
+            // Calc duration
+            const finalTime = document.getElementById("quiz-timer").innerText;
+
+            // Fill Result Statistics
+            document.getElementById("result-display-name").innerText = `Selamat, ${studentData.name}!`;
+            document.getElementById("result-display-meta").innerText = `Evaluasi kelas ${studentData.class} selesai dilaksanakan.`;
+            document.getElementById("stat-correct").innerText = correctCount;
+            document.getElementById("stat-incorrect").innerText = incorrectCount;
+            document.getElementById("stat-time").innerText = finalTime;
+
+            // Circle Score fill
+            document.getElementById("score-display-number").innerText = totalScore;
+            
+            // Adjust Stroke Dash Offset (SVG Ring math: stroke-dasharray="339.29" for r=54)
+            const ringFill = document.getElementById("score-ring-fill");
+            const circumference = 2 * Math.PI * 54; // 339.29
+            const offset = circumference - (totalScore / 100) * circumference;
+            ringFill.style.strokeDashoffset = offset;
+
+            // KKM Status Badge
+            const kkmBadge = document.getElementById("kkm-status-badge");
+            if (totalScore >= 85) {
+                kkmBadge.className = "px-4 py-1.5 rounded-full text-xs font-extrabold tracking-wider uppercase bg-green-100 text-green-800 border border-green-200";
+                kkmBadge.innerText = "SANGAT BAIK (SANGAT LULUS)";
+            } else if (totalScore >= 75) {
+                kkmBadge.className = "px-4 py-1.5 rounded-full text-xs font-extrabold tracking-wider uppercase bg-blue-100 text-blue-800 border border-blue-200";
+                kkmBadge.innerText = "BAIK (LULUS KKM)";
+            } else {
+                kkmBadge.className = "px-4 py-1.5 rounded-full text-xs font-extrabold tracking-wider uppercase bg-red-100 text-red-800 border border-red-200";
+                kkmBadge.innerText = "PERLU REMEDIAL (DI BAWAH KKM)";
+            }
+
+            // Build Review Panel
+            buildReviewList();
+        }
+
+        // BUILD DETAILED REVIEW CARDS
+        function buildReviewList() {
+            const container = document.getElementById("review-list-container");
+            container.innerHTML = "";
+
+            quizData.forEach((q, idx) => {
+                const isCorrect = userAnswers[idx] === q.correct;
+                const chosen = userAnswers[idx] || "Belum Dijawab";
+
+                const card = document.createElement("div");
+                card.className = `p-5 rounded-2xl border transition-all ${
+                    isCorrect 
+                        ? 'border-green-100 bg-green-50/20' 
+                        : 'border-red-100 bg-red-50/20'
+                }`;
+
+                // Header status info line
+                const headerLine = document.createElement("div");
+                headerLine.className = "flex flex-wrap justify-between items-center gap-1.5 pb-2 border-b border-dashed border-slate-200 mb-3 text-xs";
+                
+                const statusBadge = document.createElement("span");
+                if (isCorrect) {
+                    statusBadge.className = "bg-green-100 text-green-800 font-bold px-2 py-0.5 rounded-md flex items-center space-x-1";
+                    statusBadge.innerHTML = `<svg class="w-3.5 h-3.5 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4"></path></svg> Benar`;
+                } else {
+                    statusBadge.className = "bg-red-100 text-red-800 font-bold px-2 py-0.5 rounded-md flex items-center space-x-1";
+                    statusBadge.innerHTML = `<svg class="w-3.5 h-3.5 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg> Salah / Terlewat`;
+                }
+
+                const metadataSpan = document.createElement("span");
+                metadataSpan.className = "text-slate-400 font-semibold italic";
+                metadataSpan.innerText = `Soal ${idx + 1} • ${q.level}`;
+
+                headerLine.appendChild(metadataSpan);
+                headerLine.appendChild(statusBadge);
+
+                // Question Text
+                const questionText = document.createElement("p");
+                questionText.className = "font-bold text-slate-800 text-sm leading-relaxed mb-3";
+                questionText.innerText = q.question;
+
+                // Answer breakdown
+                const answerWrapper = document.createElement("div");
+                answerWrapper.className = "grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs mb-3.5";
+
+                const chosenBox = document.createElement("div");
+                chosenBox.className = `p-2.5 rounded-xl border ${
+                    isCorrect 
+                        ? 'border-green-200 bg-green-100/50 text-green-900' 
+                        : 'border-red-200 bg-red-100/50 text-red-900'
+                }`;
+                chosenBox.innerHTML = `<strong>Jawaban Anda:</strong> (${chosen}) ${q.options[chosen] || "Tidak ada"}`;
+
+                const correctBox = document.createElement("div");
+                correctBox.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-800";
+                correctBox.innerHTML = `<strong>Jawaban Benar:</strong> (${q.correct}) ${q.options[q.correct]}`;
+
+                answerWrapper.appendChild(chosenBox);
+                answerWrapper.appendChild(correctBox);
+
+                // Rationale Box
+                const rationaleBox = document.createElement("div");
+                rationaleBox.className = "p-3 bg-white/80 border border-slate-200 rounded-xl text-xs text-slate-600 leading-relaxed";
+                rationaleBox.innerHTML = `<strong>Kunci Pembahasan:</strong> ${q.rationale}`;
+
+                // Stitch all together
+                card.appendChild(headerLine);
+                card.appendChild(questionText);
+                card.appendChild(answerWrapper);
+                card.appendChild(rationaleBox);
+
+                container.appendChild(card);
+            });
+        }
+
+        // RESET SYSTEM
+        function restartQuiz() {
+            // Confirm Dialog
+            if (!confirm("Apakah Anda ingin memulai kuis baru dari awal? Seluruh progress Anda saat ini akan dihapus.")) return;
+
+            userAnswers = new Array(quizData.length).fill(null);
+            document.getElementById("student-name").value = "";
+            renderJumpGrid();
+
+            document.getElementById("screen-result").classList.add("hidden");
+            document.getElementById("screen-start").classList.remove("hidden");
+        }
+
+        // SCROLL HELPER
+        function scrollToReview() {
+            document.getElementById("review-section").scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+
+```
